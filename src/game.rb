@@ -2,12 +2,12 @@ require_relative '../src/board'
 require_relative '../modules/board_creator'
 
 class Game
-  include Board_creator
+  include BoardCreator
   attr_accessor :game_won, :game_over, :game_board, :players
   def initialize
     @game_won = false
     @game_over = false
-    @game_board = Board_creator::Tic_tac_toe_board.create_ttt_board
+    @game_board = BoardCreator::Tic_tac_toe_board.create_ttt_board
     @players = {'p1':'', 'p2':''}
   end
 
@@ -128,6 +128,7 @@ class Game
 
       if @game_board.board_full?
         @game_over = true
+        break
       end
     end
 
