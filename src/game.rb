@@ -4,25 +4,23 @@ require_relative '../modules/board_creator'
 class Game
   include BoardCreator
   attr_accessor :game_won, :game_over, :game_board, :players
+
   def initialize
     @game_won = false
     @game_over = false
     @game_board = BoardCreator::Tic_tac_toe_board.create_ttt_board
-    @players = {'p1':'', 'p2':''}
+    @players = { 'p1': '', 'p2': '' }
   end
-
 
   def begin_game
     player_setup
-    @players
+
     @game_board.draw_example_board
     puts "This board mirrors the input from a numpad on a keyboard.\nEnter numbers to make a move."
     play_game
   end
 
-
-
-  def player_square_choice(test_input= 5)
+  def player_square_choice(test_input = 5)
     puts 'Choose a square'
     input = gets.to_i
     # choice will return valid or invalid
@@ -50,7 +48,7 @@ class Game
             left_column_win, middle_column_win, right_column_win,
             diagonal_win, diagonal_win_other]
 
-    if wins.map {|i| check_win(i) }.join == ""
+    if wins.map { |i| check_win(i) }.join == ""
       false
     else
       @game_won = true
@@ -85,8 +83,7 @@ class Game
   def valid_square_choice_input?(input)
     if @game_board.board_spaces[:"#{input.to_s}"] == " " && input in (1..9)
       input.to_s
-    elsif
-      @game_board.board_spaces[:"#{input}"] != " "
+    elsif @game_board.board_spaces[:"#{input}"] != " "
       false
     end
   end
@@ -96,7 +93,7 @@ class Game
     play_count = 0
     while !@game_over || !@game_won
 
-      move = [ @players[:'p1'], @players[:'p2']]
+      move = [@players[:'p1'], @players[:'p2']]
       puts "play choice"
       choice = player_square_choice
 
@@ -114,8 +111,6 @@ class Game
       end
 
       play_count += 1
-
-
 
       if play_count > 2
 
