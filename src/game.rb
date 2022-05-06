@@ -1,5 +1,6 @@
 require_relative '../src/board'
 require_relative '../modules/board_creator'
+require_relative '../src/ai'
 
 class Game
   include BoardCreator
@@ -62,19 +63,19 @@ class Game
   end
 
   def player_setup
-    valid = false
+    valid_mark = false
     puts "Welcome to Tic-Tac-Toe"
     puts "Player, please choose a mark."
-    until valid
+    until valid_mark
       puts "Choose either X or O..."
       mark = gets.upcase.chomp!
-      valid = player_mark_choice(mark)
+      valid_mark = player_mark_choice(mark)
     end
-    if valid == 'X'.chomp
-      @players[:'p1'] = valid
+    if valid_mark == 'X'.chomp
+      @players[:'p1'] = valid_mark
       @players[:'p2'] = 'O'
     else
-      @players[:'p1'] = valid
+      @players[:'p1'] = valid_mark
       @players[:'p2'] = 'X'
 
     end
@@ -87,48 +88,69 @@ class Game
       false
     end
   end
-
+  # TODO DRY ip game loop
   def play_game
+    # Initialize counter
     counter = 0
-    play_count = 0
+
+    # Start main game play loop
     while !@game_over || !@game_won
 
       move = [@players[:'p1'], @players[:'p2']]
-      puts "play choice"
+      puts "Player One"
       choice = player_square_choice
 
-      if !choice
+      # Logic for the human player
+      if !choice && counter.zero?
         until choice
           puts "That square is already occupied, please choose an open square."
           @game_board.draw_board
           choice = player_square_choice
         end
         @game_board.board_spaces[:"#{choice}"] = move[counter]
+        puts counter
         @game_board.draw_board
       else
         @game_board.board_spaces[:"#{choice}"] = move[counter]
+        puts counter
         @game_board.draw_board
       end
 
-      play_count += 1
 
-      if play_count > 2
-
-        if check_win_condition
-          puts "Player #{move[counter]} wins!"
-          @game_over = true
-        end
-      end
-      counter.zero? ? counter = 1 : counter = 0
-
+      # If board isn't full, CPU can play
       if @game_board.board_full?
         @game_over = true
         break
       end
+
+      if check_win_condition
+        puts "Player #{move[counter]} wins!"
+        @game_over = true
+        break
+      else
+        # Player turn ends, flip counter
+        counter.zero? ? counter = 1 : counter = 0
+      end
+
+      if counter == 1 && !@game_over
+        puts "CPU's turn..."
+        pick = Ai.pick_space(@game_board.board_spaces)
+        puts " cpu picks #{pick}"
+        @game_board.board_spaces[:"#{pick}"] = move[counter]
+        puts counter
+        @game_board.draw_board
+        puts 'cpu turn ended'
+        if check_win_condition
+          puts "Player #{move[counter]} wins!"
+          @game_over = true
+          break
+        else
+          counter.zero? ? counter = 1 : counter = 0
+        end
+      end
     end
-
   end
-
 end
+
 
 
