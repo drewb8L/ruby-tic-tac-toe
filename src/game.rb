@@ -88,7 +88,7 @@ class Game
       false
     end
   end
-  # TODO DRY ip game loop
+  # TODO DRY up game loop
   def play_game
     # Initialize counter
     counter = 0
