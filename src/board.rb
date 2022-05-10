@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Board
   attr_accessor :board_spaces, :board_spaces_example
 
@@ -30,20 +32,18 @@ class Board
   end
 
   def space_occupied?(choice)
-    if @board_spaces.fetch(choice) != ' '
+    if @board_spaces.fetch(choice) == ' '
+      false
+    else
       puts "Space #{choice} taken! Please choose again."
       true
-    else
-      false
     end
   end
 
   def board_full?
     square = 0
     @board_spaces.each_value do |v|
-      if v != ' '
-        square += 1
-      end
+      square += 1 if v != ' '
     end
     if square == 9
       puts 'Game ended in a draw!'
