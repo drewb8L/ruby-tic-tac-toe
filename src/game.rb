@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 require_relative '../src/board'
-require_relative '../modules/board_creator'
+# require_relative '../modules/board_creator'
 
 # Game Class
 class Game
-  include BoardCreator
+  #  include BoardCreator
   attr_accessor :game_won, :game_over, :game_board, :players
 
   def initialize
