@@ -2,9 +2,10 @@
 
 require 'rspec'
 require_relative '../src/game'
-
+require_relative '../src/board'
 describe Game do
-  let(:subject) { Game.new }
+  board = Board.new
+  let(:subject) { Game.new(board) }
   it 'should set initialize game_won to false' do
     expect(subject.game_won).to be_falsey
   end

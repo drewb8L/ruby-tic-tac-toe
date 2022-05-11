@@ -8,11 +8,11 @@ class Game
   #  include BoardCreator
   attr_accessor :game_won, :game_over, :game_board, :players
 
-  def initialize
+  def initialize(board)
     @game_won = false
     @game_over = false
     # @game_board = BoardCreator::TicTacToeBoard.create_ttt_board
-    @game_board = Board.new
+    @game_board = board
     @players = { p1: '', p2: '' }
     @counter = 0
     @play_count = 0
