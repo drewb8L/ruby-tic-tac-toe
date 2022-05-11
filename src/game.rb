@@ -3,6 +3,7 @@
 require_relative '../src/board'
 require_relative '../modules/board_creator'
 
+# Game Class
 class Game
   include BoardCreator
   attr_accessor :game_won, :game_over, :game_board, :players
@@ -10,8 +11,11 @@ class Game
   def initialize
     @game_won = false
     @game_over = false
-    @game_board = BoardCreator::Tic_tac_toe_board.create_ttt_board
+    # @game_board = BoardCreator::TicTacToeBoard.create_ttt_board
+    @game_board = Board.new
     @players = { p1: '', p2: '' }
+    @counter = 0
+    @play_count = 0
   end
 
   def begin_game
@@ -32,6 +36,7 @@ class Game
     true if arr1.eql?(%w[X X X]) || arr1.eql?(%w[O O O])
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def check_win_condition
     top_row_win = @game_board.board_spaces.values_at(:'7', :'8', :'9')
     middle_row_win = @game_board.board_spaces.values_at(:'4', :'5', :'6')
@@ -54,6 +59,7 @@ class Game
       @game_won = true
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   private
 
@@ -67,16 +73,11 @@ class Game
     puts 'Player, please choose a mark.'
     until valid
       puts 'Choose either X or O...'
-      mark = gets.upcase.chomp!
+      mark = gets.chomp.upcase
       valid = player_mark_choice(mark)
     end
     @players[:p1] = valid
-    @players[:p2] = if valid == 'X'.chomp
-                      'O'
-                    else
-                      'X'
-
-                    end
+    @players[:p2] = valid == 'X'.chomp ? 'O' : 'X'
   end
 
   def valid_square_choice_input?(input)
@@ -87,16 +88,15 @@ class Game
     end
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity,  Metrics/PerceivedComplexity
   def play_game
-    counter = 0
-    play_count = 0
     while !@game_over || !@game_won
-
       move = [@players[:p1], @players[:p2]]
       puts 'play choice'
       choice = player_square_choice
-
       if choice
+        @game_board.board_spaces[:"#{choice}"] = move[@counter]
+        @game_board.draw_board
       else
         until choice
           puts 'That square is already occupied, please choose an open square.'
@@ -104,21 +104,17 @@ class Game
           choice = player_square_choice
         end
       end
-      @game_board.board_spaces[:"#{choice}"] = move[counter]
-      @game_board.draw_board
-
-      play_count += 1
-
-      if play_count > 2 && check_win_condition
-        puts "Player #{move[counter]} wins!"
+      @play_count += 1
+      if @play_count > 2 && check_win_condition
+        puts "Player #{move[@counter]} wins!"
         @game_over = true
       end
-      counter = counter.zero? ? 1 : 0
-
+      @counter = @counter.zero? ? 1 : 0
       if @game_board.board_full?
         @game_over = true
         break
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity,  Metrics/PerceivedComplexity
 end

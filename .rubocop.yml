@@ -1,6 +1,11 @@
 AllCops:
   NewCops: enable
+  Metrics/AbcSize:
+    Max: 50
+  Metrics/BlockLength:
+    IgnoredMethods:
+      - refine
+      - !ruby/regexp /\b(class|instance)_methods\b/
   TargetRubyVersion: 3.1
   Exclude:
     - Guardfile
-    -

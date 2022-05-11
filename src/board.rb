@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Board class
 class Board
   attr_accessor :board_spaces, :board_spaces_example
 
@@ -52,4 +53,9 @@ class Board
       false
     end
   end
+  WinConditions = Struct.new('WinConditions', :game_board,
+                             :top_row_win, :middle_row_win, :bottom_row_win,
+                             :left_column_win, :middle_column_win, :right_column_win,
+                             :diagonal_win, :diagonal_win_other)
+  def check_win(game_board); end
 end
