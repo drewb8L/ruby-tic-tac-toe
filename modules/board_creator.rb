@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 module BoardCreator
-  module Tic_tac_toe_board
+  # Creates A Tic tac toe board or other future boards
+  module TicTacToeBoard
     class << self
       def create_ttt_board
         require_relative '../src/board'

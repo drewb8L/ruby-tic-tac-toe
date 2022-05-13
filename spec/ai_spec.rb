@@ -15,12 +15,12 @@ context Ai do
   game = Game.new
   spaces = game.game_board.board_spaces
   new_spaces = spaces.clone
-  spaces[:"9"] = 'X'
-  spaces[:"5"] = 'O'
-  spaces[:"8"] = 'X'
-  spaces[:"7"] = 'X'
-  spaces[:"6"] = 'O'
-  spaces[:"4"] = 'X'
+  spaces[:'9'] = 'X'
+  spaces[:'5'] = 'O'
+  spaces[:'8'] = 'X'
+  spaces[:'7'] = 'X'
+  spaces[:'6'] = 'O'
+  spaces[:'4'] = 'X'
   pick = Ai.pick_space(spaces)
   spaces[:"#{pick}"] = 'O'
 

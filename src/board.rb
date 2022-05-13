@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# TTT board
 class Board
   attr_accessor :board_spaces, :board_spaces_example
 
@@ -32,11 +33,11 @@ class Board
   end
 
   def space_occupied?(choice)
-    if @board_spaces.fetch(choice) != ' '
+    if @board_spaces.fetch(choice) == ' '
+      false
+    else
       puts "Space #{choice} taken! Please choose again."
       true
-    else
-      false
     end
   end
 
