@@ -23,7 +23,7 @@ class Game
     play_game
   end
 
-  def player_square_choice(_test_input = 5)
+  def player_square_choice
     puts 'Choose a square'
     input = gets.to_i
     # choice will return valid or invalid

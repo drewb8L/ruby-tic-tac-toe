@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 require 'rspec'
+require 'stringio'
 require_relative '../src/game'
 
 describe Game do
   let(:subject) { Game.new }
+  let(:input) { StringIO.new('5') }
   it 'should set initialize game_won to false' do
     expect(subject.game_won).to be_falsey
   end
@@ -15,16 +17,14 @@ describe Game do
 
   it 'should instantiate a Board object' do
     expect(subject.game_board).not_to be(nil)
-    # expect(subject.game_board).to be_a(Board) just checking :)
   end
 
-  # Come back to this test later
-  # it 'should take player space choice and return correct string or false' do
-  #   allow(subject.player_square_choice).to receive(:test_input)
-  #   # expect(subject.player_square_choice(5)).to be_truthy
-  #   # expect(subject.player_square_choice(0)).to be_falsey
-  #
-  # end
+
+  it 'should take player space choice and return correct string or false' do
+    $stdin = input
+    expect(subject.player_square_choice).to output("Choose a square\n").to_stdout.and be_falsey
+    $stdin = STDIN
+  end
 
   # Game win conditions
   it 'should return true once win conditions are met' do
