@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Board
   attr_accessor :board_spaces, :board_spaces_example
 
@@ -41,9 +43,7 @@ class Board
   def board_full?
     square = 0
     @board_spaces.each_value do |v|
-      if v != ' '
-        square += 1
-      end
+      square += 1 if v != ' '
     end
     if square == 9
       puts 'Game ended in a draw!'

@@ -1,6 +1,12 @@
-source "https://rubygems.org"
-gem "rspec", "~> 3.11"
+# frozen_string_literal: true
 
-gem "fuubar", "~> 2.5"
+source 'https://rubygems.org'
+gem 'rspec', '~> 3.11'
 
-gem "rubocop", "~> 1.28"
+gem 'fuubar', '~> 2.5'
+
+gem 'rubocop', '~> 1.28'
+
+group :development do
+  gem 'guard-rspec'
+end

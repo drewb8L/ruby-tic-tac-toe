@@ -26,10 +26,7 @@ context Ai do
 
   it 'should pick an empty space when given a hash of board spaces' do
     expect(spaces).to_not eq(new_spaces)
-
   end
   puts "Ai picked square #{pick}"
   puts game.game_board.board_spaces
 end
-
-

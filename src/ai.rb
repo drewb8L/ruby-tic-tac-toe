@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'singleton'
+# Computer player
 class Ai
   include Singleton
 
@@ -9,6 +10,6 @@ class Ai
     spaces.each_pair do |key, value|
       options << key if value == ' '
     end
-    pick = options[(Random.rand(0..options.length - 1))]
+    options[(Random.rand(0..options.length - 1))]
   end
 end
