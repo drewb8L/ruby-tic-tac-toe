@@ -36,6 +36,7 @@ class Game
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def check_win_condition
+    # TODO: Make these individual methods
     top_row_win = @game_board.board_spaces.values_at(:'7', :'8', :'9')
     middle_row_win = @game_board.board_spaces.values_at(:'4', :'5', :'6')
     bottom_row_win = @game_board.board_spaces.values_at(:'1', :'2', :'3')
@@ -86,7 +87,7 @@ class Game
     end
   end
 
-  # TODO: DRY up game loop
+  # TODO: DRY up game loop / break up into smaller chunks
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity,  Metrics/PerceivedComplexity
   def play_game
     # Initialize counter

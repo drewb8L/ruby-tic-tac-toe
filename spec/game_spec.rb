@@ -19,7 +19,7 @@ describe Game do
     expect(subject.game_board).not_to be(nil)
   end
 
-
+  # TODO fix me
   it 'should take player space choice and return correct string or false' do
     $stdin = input
     expect(subject.player_square_choice).to output("Choose a square\n").to_stdout.and be_falsey
