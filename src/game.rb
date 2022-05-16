@@ -2,6 +2,7 @@
 
 require_relative '../src/board'
 require_relative '../modules/board_creator'
+require_relative '../modules/win_conditions'
 require_relative '../src/ai'
 
 # Manages the game
@@ -30,37 +31,17 @@ class Game
     valid_square_choice_input?(input)
   end
 
-  def check_win(arr1)
-    true if arr1.eql?(%w[X X X]) || arr1.eql?(%w[O O O])
-  end
+  private
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def check_win_condition
-    # TODO: Make these individual methods
-    top_row_win = @game_board.board_spaces.values_at(:'7', :'8', :'9')
-    middle_row_win = @game_board.board_spaces.values_at(:'4', :'5', :'6')
-    bottom_row_win = @game_board.board_spaces.values_at(:'1', :'2', :'3')
-
-    left_column_win = @game_board.board_spaces.values_at(:'7', :'4', :'1')
-    middle_column_win = @game_board.board_spaces.values_at(:'8', :'5', :'2')
-    right_column_win = @game_board.board_spaces.values_at(:'9', :'6', :'3')
-
-    diagonal_win = @game_board.board_spaces.values_at(:'7', :'5', :'3')
-    diagonal_win_other = @game_board.board_spaces.values_at(:'1', :'5', :'9')
-
-    wins = [top_row_win, middle_row_win, bottom_row_win,
-            left_column_win, middle_column_win, right_column_win,
-            diagonal_win, diagonal_win_other]
-
-    if wins.map { |i| check_win(i) }.join == ''
-      false
+    if WinConditions.row_wins(@game_board) ||
+       WinConditions.column_wins(@game_board) ||
+       WinConditions.diagonal_wins(@game_board)
+      true
     else
-      @game_won = true
+      false
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-
-  private
 
   def player_mark_choice(mark)
     %w[X O].include?(mark) ? mark : false
@@ -100,6 +81,8 @@ class Game
       puts 'Player One'
       choice = player_square_choice
 
+      # Break into function
+      # make_choice()
       # Logic for the human player
       if !choice && counter.zero?
         until choice
@@ -117,7 +100,8 @@ class Game
         @game_over = true
         break
       end
-
+      # Break into function
+      # Check_for_win()
       if check_win_condition
         puts "Player #{move[counter]} wins!"
         @game_over = true
@@ -128,7 +112,8 @@ class Game
       end
 
       next unless counter == 1 && !@game_over
-
+      # Break into function
+      # next_turn()
       puts "CPU's turn..."
       pick = Ai.pick_space(@game_board.board_spaces)
       puts " cpu picks #{pick}"
