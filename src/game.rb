@@ -20,7 +20,7 @@ class Game
   def begin_game
     player_setup
     @game_board.draw_example_board
-    puts "This board mirrors the input from a numpad on a keyboard.\nEnter numbers to make a move."
+    puts "This board mirrors the input from a numpad on a keyboard.\nEnter numbers to make a @move."
     play_game
   end
 
@@ -68,67 +68,56 @@ class Game
     end
   end
 
-  # TODO: DRY up game loop / break up into smaller chunks
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity,  Metrics/PerceivedComplexity
-  def play_game
-    # Initialize counter
-    counter = 0
-
-    # Start main game play loop
-    while !@game_over || !@game_won
-
-      move = [@players[:p1], @players[:p2]]
-      puts 'Player One'
-      choice = player_square_choice
-
-      # Break into function
-      # make_choice()
-      # Logic for the human player
-      if !choice && counter.zero?
-        until choice
-          puts 'That square is already occupied, please choose an open square.'
-          @game_board.draw_board
-          choice = player_square_choice
-        end
+  def player_turn
+    choice = player_square_choice
+    if !choice && @counter.zero?
+      until choice
+        puts 'That square is already occupied, please choose an open square.'
+        @game_board.draw_board
+        choice = player_square_choice
       end
-      @game_board.board_spaces[:"#{choice}"] = move[counter]
-      puts counter
+    end
+    @game_over = check_win_condition || @game_board.board_full?
+    if !@game_over || !@game_board.board_full?
+      @game_board.board_spaces[:"#{choice}"] = @turn[@counter]
       @game_board.draw_board
+    end
 
-      # If board isn't full, CPU can play
-      if @game_board.board_full?
-        @game_over = true
-        break
-      end
-      # Break into function
-      # Check_for_win()
-      if check_win_condition
-        puts "Player #{move[counter]} wins!"
-        @game_over = true
-        break
-      else
-        # Player turn ends, flip counter
-        counter = counter.zero? ? 1 : 0
-      end
+  end
 
-      next unless counter == 1 && !@game_over
-      # Break into function
-      # next_turn()
+  def cpu_turn
+    if !@game_over && !@game_board.board_full?
+      @counter = @counter.zero? ? 1 : 0
       puts "CPU's turn..."
       pick = Ai.pick_space(@game_board.board_spaces)
       puts " cpu picks #{pick}"
-      @game_board.board_spaces[:"#{pick}"] = move[counter]
-      puts counter
+      @game_board.board_spaces[:"#{pick}"] = @turn[@counter]
       @game_board.draw_board
       puts 'cpu turn ended'
-      if check_win_condition
-        puts "Player #{move[counter]} wins!"
-        @game_over = true
-        break
-      else
-        counter = counter.zero? ? 1 : 0
-      end
+      check_win_condition || @game_board.board_full? ? @game_over = true : @counter = @counter.zero? ? 1 : 0
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity,  Metrics/PerceivedComplexity
+
+  def play_game
+    # Initialize counter
+    @counter = 0
+    # Start main game play loop
+    while !@game_over || !@game_won
+      @turn = [@players[:p1], @players[:p2]]
+
+      if !check_win_condition
+        puts 'Player One'
+        player_turn
+
+      elsif @game_over
+        puts "Player #{@turn[@counter]} wins!"
+        break
+      elsif @game_board.board_full?
+        !@game_over
+      end
+
+      @game_over = cpu_turn
+    end
+  end
+
 end
