@@ -46,10 +46,6 @@ class Board
     @board_spaces.each_value do |v|
       square += 1 if v != ' '
     end
-    if square == 9
-      true
-    else
-      false
-    end
+    square == 9
   end
 end

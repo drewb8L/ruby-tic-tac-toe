@@ -4,17 +4,19 @@ require_relative '../src/board'
 require_relative '../modules/board_creator'
 require_relative '../modules/win_conditions'
 require_relative '../src/ai'
+require_relative '../src/rules'
 
 # Manages the game
 class Game
   include BoardCreator
-  attr_accessor :game_draw, :game_over, :game_board, :players
+  attr_accessor :game_draw, :game_over, :game_board, :players, :rules
 
   def initialize
     @game_draw = false
     @game_over = false
     @game_board = BoardCreator::TicTacToeBoard.create_ttt_board
     @players = { p1: '', p2: '' }
+    @rules = Rules.new(@game_board) # TODO: DI this
   end
 
   def begin_game
@@ -28,11 +30,12 @@ class Game
     puts 'Choose a square'
     input = gets.to_i
     # choice will return valid or invalid
-    valid_square_choice_input?(input)
+    @rules.valid_square_choice_input?(input)
   end
 
   private
 
+  # Rules
   def check_win_condition
     if WinConditions.row_wins(@game_board) ||
        WinConditions.column_wins(@game_board) ||
@@ -43,14 +46,17 @@ class Game
     end
   end
 
-  def check_draw
-    @game_board.board_full? ? @game_draw = true : false
-  end
+  # Rules
+  # def check_draw
+  #   @rules.board_full? ? @game_draw = true : false
+  # end
 
+  # Rules
   def player_mark_choice(mark)
     %w[X O].include?(mark) ? mark : false
   end
 
+  # Maybe rules, player options
   def player_setup
     valid_mark = false
     puts 'Welcome to Tic-Tac-Toe'
@@ -64,15 +70,9 @@ class Game
     @players[:p2] = valid_mark == 'X'.chomp ? 'O' : 'X'
   end
 
-  def valid_square_choice_input?(input)
-    if @game_board.board_spaces[:"#{input}"] == ' ' && input in (1..9)
-      input.to_s
-    elsif @game_board.board_spaces[:"#{input}"] != ' '
-      false
-    end
-  end
+  # Rules
 
-  def player_turn
+  def human_player_turn
     choice = player_square_choice
     if !choice && @counter.zero?
       until choice
@@ -100,10 +100,10 @@ class Game
     @counter = 0
     # WORKS BUT NOT DRY!!!
     until @game_over || @game_draw
-      player_turn unless check_draw || check_win_condition
-      @counter = @counter.zero? ? 1 : 0 unless check_win_condition || check_draw
-      cpu_turn unless check_win_condition || check_draw
-      @counter = @counter.zero? ? 1 : 0 unless check_win_condition || check_draw
+      human_player_turn unless @rules.check_draw || check_win_condition
+      @counter = @counter.zero? ? 1 : 0 unless check_win_condition || @rules.check_draw
+      cpu_turn unless check_win_condition || @rules.check_draw
+      @counter = @counter.zero? ? 1 : 0 unless check_win_condition || @rules.check_draw
     end
     if @game_over
       puts "Game won by player #{@turn[@counter]}"
