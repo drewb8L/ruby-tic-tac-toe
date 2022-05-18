@@ -14,9 +14,6 @@ class Game
   def initialize
     @game_board = BoardCreator::TicTacToeBoard.create_ttt_board
     @rules = Rules.new(@game_board) # TODO: DI this
-    @game_draw = @rules.game_draw
-    @game_over = @rules.game_over
-
     @players = { p1: '', p2: '' }
   end
 
@@ -35,18 +32,6 @@ class Game
   end
 
   private
-
-  # Rules
-  # def check_win_condition
-  #   if WinConditions.row_wins(@game_board) ||
-  #      WinConditions.column_wins(@game_board) ||
-  #      WinConditions.diagonal_wins(@game_board)
-  #     @game_over = true
-  #   else
-  #     false
-  #   end
-  # end
-
 
   # Rules
   def player_mark_choice(mark)

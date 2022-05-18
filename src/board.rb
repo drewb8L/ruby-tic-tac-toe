@@ -31,21 +31,4 @@ class Board
     puts ' --+--+--'
     puts " #{@board_spaces_example[:'1']} |#{@board_spaces_example[:'2']} |#{@board_spaces_example[:'3']}"
   end
-
-  def space_occupied?(choice)
-    if @board_spaces.fetch(choice) == ' '
-      false
-    else
-      puts "Space #{choice} taken! Please choose again."
-      true
-    end
-  end
-
-  def board_full?
-    square = 0
-    @board_spaces.each_value do |v|
-      square += 1 if v != ' '
-    end
-    square == 9
-  end
 end
