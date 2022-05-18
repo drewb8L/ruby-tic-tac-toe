@@ -2,7 +2,7 @@
 
 # TTT board
 class Board
-  attr_accessor :board_spaces, :board_spaces_example
+  attr_accessor :board_spaces, :board_spaces_example, :board_full
 
   def initialize
     @board_spaces =

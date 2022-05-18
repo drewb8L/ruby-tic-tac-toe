@@ -12,11 +12,12 @@ class Game
   attr_accessor :game_draw, :game_over, :game_board, :players, :rules
 
   def initialize
-    @game_draw = false
-    @game_over = false
     @game_board = BoardCreator::TicTacToeBoard.create_ttt_board
-    @players = { p1: '', p2: '' }
     @rules = Rules.new(@game_board) # TODO: DI this
+    @game_draw = @rules.game_draw
+    @game_over = @rules.game_over
+
+    @players = { p1: '', p2: '' }
   end
 
   def begin_game
@@ -36,20 +37,16 @@ class Game
   private
 
   # Rules
-  def check_win_condition
-    if WinConditions.row_wins(@game_board) ||
-       WinConditions.column_wins(@game_board) ||
-       WinConditions.diagonal_wins(@game_board)
-      @game_over = true
-    else
-      false
-    end
-  end
-
-  # Rules
-  # def check_draw
-  #   @rules.board_full? ? @game_draw = true : false
+  # def check_win_condition
+  #   if WinConditions.row_wins(@game_board) ||
+  #      WinConditions.column_wins(@game_board) ||
+  #      WinConditions.diagonal_wins(@game_board)
+  #     @game_over = true
+  #   else
+  #     false
+  #   end
   # end
+
 
   # Rules
   def player_mark_choice(mark)
@@ -99,15 +96,15 @@ class Game
     @turn = [@players[:p1], @players[:p2]]
     @counter = 0
     # WORKS BUT NOT DRY!!!
-    until @game_over || @game_draw
-      human_player_turn unless @rules.check_draw || check_win_condition
-      @counter = @counter.zero? ? 1 : 0 unless check_win_condition || @rules.check_draw
-      cpu_turn unless check_win_condition || @rules.check_draw
-      @counter = @counter.zero? ? 1 : 0 unless check_win_condition || @rules.check_draw
+    until @rules.game_over || @rules.game_draw
+      human_player_turn unless @rules.check_draw || @rules.check_win_condition
+      @counter = @counter.zero? ? 1 : 0 unless @rules.check_win_condition || @rules.check_draw
+      cpu_turn unless @rules.check_win_condition || @rules.check_draw
+      @counter = @counter.zero? ? 1 : 0 unless @rules.check_win_condition || @rules.check_draw
     end
-    if @game_over
+    if @rules.game_over
       puts "Game won by player #{@turn[@counter]}"
-    elsif @game_draw
+    elsif @rules.game_draw
       puts 'The game has ended in a draw!'
     end
   end
