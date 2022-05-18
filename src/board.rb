@@ -47,7 +47,6 @@ class Board
       square += 1 if v != ' '
     end
     if square == 9
-      puts 'Game ended in a draw!'
       true
     else
       false
