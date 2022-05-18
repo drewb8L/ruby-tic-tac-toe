@@ -6,10 +6,6 @@ require_relative '../src/game'
 
 describe Game do
   let(:subject) { Game.new }
-  let(:input) { StringIO.new('5') }
-  it 'should set initialize game_won to false' do
-    expect(subject.game_won).to be_falsey
-  end
 
   it 'should initialize game_over to false' do
     expect(subject.game_over).to be_falsey
