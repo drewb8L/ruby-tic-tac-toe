@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
-require_relative 'game'
 
+require_relative '../modules/game_setup'
 def main
-  game = Game.new
-  game.begin_game
+  GameSetup::TicTacToeGame.player_setup
 end
 
 main

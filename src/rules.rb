@@ -10,20 +10,11 @@ class Rules
     @game_over = false
     @game_draw = false
   end
-  # Was Not being used at all!
-  # def space_occupied?(choice)
-  #   if @board.board_spaces.fetch(choice) == ' '
-  #     false
-  #   else
-  #     puts "Space #{choice} taken! Please choose again."
-  #     true
-  #   end
-  # end
 
   def valid_square_choice_input?(input)
     if @board.board_spaces[:"#{input}"] == ' ' && input in (1..9)
       input.to_s
-    elsif @board.board_spaces[:"#{input}"] != ' '
+    else
       false
     end
   end

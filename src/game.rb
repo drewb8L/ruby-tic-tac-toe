@@ -2,27 +2,30 @@
 
 require_relative '../src/board'
 require_relative '../modules/board_creator'
-require_relative '../modules/win_conditions'
+require_relative '../modules/game_setup'
 require_relative '../src/ai'
 require_relative '../src/rules'
 
 # Manages the game
 class Game
-  include BoardCreator
-  attr_accessor :game_draw, :game_over, :game_board, :players, :rules
+  attr_accessor :game_board, :players, :rules
 
-  def initialize
-    @game_board = BoardCreator::TicTacToeBoard.create_ttt_board
-    @rules = Rules.new(@game_board) # TODO: DI this
-    @players = { p1: '', p2: '' }
+  def initialize(params)
+    @game_board = params[:board]
+    @rules = params[:rules]
+    @players = params[:players]
+    @cpu_player = params[:cpu_opponent]
   end
 
   def begin_game
-    player_setup
-    @game_board.draw_example_board
+    # player_setup
+
+    @rules.board.draw_example_board
     puts "This board mirrors the input from a numpad on a keyboard.\nEnter numbers to make a @move."
     play_game
   end
+
+  private
 
   def player_square_choice
     puts 'Choose a square'
@@ -31,28 +34,40 @@ class Game
     @rules.valid_square_choice_input?(input)
   end
 
-  private
-
   # Rules
-  def player_mark_choice(mark)
-    %w[X O].include?(mark) ? mark : false
-  end
+  # def player_mark_choice(mark)
+  #   %w[X O].include?(mark) ? mark : false
+  # end
 
   # Maybe rules, player options
-  def player_setup
-    valid_mark = false
-    puts 'Welcome to Tic-Tac-Toe'
-    puts 'Player, please choose a mark.'
-    until valid_mark
-      puts 'Choose either X or O...'
-      mark = gets.chomp.upcase
-      valid_mark = player_mark_choice(mark)
+  # def player_setup
+  #   valid_mark = false
+  #   puts 'Welcome to Tic-Tac-Toe'
+  #   puts 'Player, please choose a mark.'
+  #   until valid_mark
+  #     puts 'Choose either X or O...'
+  #     mark = gets.chomp.upcase
+  #     valid_mark = player_mark_choice(mark)
+  #   end
+  #   @players[:p1] = valid_mark
+  #   @players[:p2] = valid_mark == 'X'.chomp ? 'O' : 'X'
+  # end
+
+  def player_one
+    if @cpu_player && @players[:p1][:type] == 'cpu'
+      cpu_turn
+    else
+      human_player_turn
     end
-    @players[:p1] = valid_mark
-    @players[:p2] = valid_mark == 'X'.chomp ? 'O' : 'X'
   end
 
-  # Rules
+  def player_two
+    if @cpu_player && @players[:p2][:type] == 'cpu'
+      cpu_turn
+    else
+      human_player_turn
+    end
+  end
 
   def human_player_turn
     choice = player_square_choice
@@ -75,16 +90,19 @@ class Game
     @game_board.draw_board
     puts 'cpu turn ended'
   end
-
+  # play_game
+  # set turn = players
+  # start loop
+  #
   def play_game
     # Initialize counter and turn
-    @turn = [@players[:p1], @players[:p2]]
+    @turn = [@players[:p1][:mark], @players[:p2][:mark]]
     @counter = 0
     # WORKS BUT NOT DRY!!!
     until @rules.game_over || @rules.game_draw
-      human_player_turn unless @rules.check_draw || @rules.check_win_condition
+      player_one unless @rules.check_draw || @rules.check_win_condition
       @counter = @counter.zero? ? 1 : 0 unless @rules.check_win_condition || @rules.check_draw
-      cpu_turn unless @rules.check_win_condition || @rules.check_draw
+      player_two unless @rules.check_win_condition || @rules.check_draw
       @counter = @counter.zero? ? 1 : 0 unless @rules.check_win_condition || @rules.check_draw
     end
     if @rules.game_over
