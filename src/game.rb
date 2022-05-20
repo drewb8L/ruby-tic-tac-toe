@@ -21,6 +21,16 @@ class Game
     play_game
   end
 
+  def take_turns
+    # WORKS BUT NOT DRY!!!
+    until @rules.game_over || @rules.game_draw
+      player_one unless @rules.check_draw || @rules.check_win_condition
+      @counter = @counter.zero? ? 1 : 0 unless @rules.check_win_condition || @rules.check_draw
+      player_two unless @rules.check_win_condition || @rules.check_draw
+      @counter = @counter.zero? ? 1 : 0 unless @rules.check_win_condition || @rules.check_draw
+    end
+  end
+
   private
 
   def player_square_choice
@@ -73,13 +83,7 @@ class Game
     # Initialize counter and turn
     @turn = [@players[:p1][:mark], @players[:p2][:mark]]
     @counter = 0
-    # WORKS BUT NOT DRY!!!
-    until @rules.game_over || @rules.game_draw
-      player_one unless @rules.check_draw || @rules.check_win_condition
-      @counter = @counter.zero? ? 1 : 0 unless @rules.check_win_condition || @rules.check_draw
-      player_two unless @rules.check_win_condition || @rules.check_draw
-      @counter = @counter.zero? ? 1 : 0 unless @rules.check_win_condition || @rules.check_draw
-    end
+    take_turns
     if @rules.game_over
       puts "Game won by player #{@turn[@counter]}"
     elsif @rules.game_draw
