@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'rspec'
-require_relative '../src/board'
+require_relative '../src/TttBoard'
 
-describe Board do
+describe TttBoard do
   it 'should initialize board with blank spaces' do
     expect(subject.board_spaces).to eq({ '7': ' ', '8': ' ', '9': ' ', '4': ' ', '5': ' ', '6': ' ', '1': ' ',
                                          '2': ' ', '3': ' ' })

@@ -11,7 +11,7 @@ describe Game do
     expect(subject.game_over).to be_falsey
   end
 
-  it 'should instantiate a Board object' do
+  it 'should instantiate a TttBoard object' do
     expect(subject.game_board).not_to be(nil)
   end
 

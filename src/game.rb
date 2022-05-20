@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-require_relative '../src/board'
-require_relative '../modules/board_creator'
 require_relative '../modules/game_setup'
 require_relative '../src/ai'
-require_relative '../src/rules'
+
 
 # Manages the game
 class Game
@@ -18,10 +16,8 @@ class Game
   end
 
   def begin_game
-    # player_setup
-
     @rules.board.draw_example_board
-    puts "This board mirrors the input from a numpad on a keyboard.\nEnter numbers to make a @move."
+    puts "This board mirrors the input from a numpad on a keyboard.\nEnter numbers to make a move."
     play_game
   end
 
@@ -33,25 +29,6 @@ class Game
     # choice will return valid or invalid
     @rules.valid_square_choice_input?(input)
   end
-
-  # Rules
-  # def player_mark_choice(mark)
-  #   %w[X O].include?(mark) ? mark : false
-  # end
-
-  # Maybe rules, player options
-  # def player_setup
-  #   valid_mark = false
-  #   puts 'Welcome to Tic-Tac-Toe'
-  #   puts 'Player, please choose a mark.'
-  #   until valid_mark
-  #     puts 'Choose either X or O...'
-  #     mark = gets.chomp.upcase
-  #     valid_mark = player_mark_choice(mark)
-  #   end
-  #   @players[:p1] = valid_mark
-  #   @players[:p2] = valid_mark == 'X'.chomp ? 'O' : 'X'
-  # end
 
   def player_one
     if @cpu_player && @players[:p1][:type] == 'cpu'
@@ -74,26 +51,24 @@ class Game
     if !choice && @counter.zero?
       until choice
         puts 'That square is already occupied, please choose an open square.'
-        @game_board.draw_board
+        @rules.board.draw_board
         choice = player_square_choice
       end
     end
-    @game_board.board_spaces[:"#{choice}"] = @turn[@counter]
-    @game_board.draw_board
+    @rules.board.board_spaces[:"#{choice}"] = @turn[@counter]
+    @rules.board.draw_board
   end
 
   def cpu_turn
     puts "CPU's turn..."
-    pick = Ai.pick_space(@game_board.board_spaces)
+    pick = Ai.pick_space(@rules.board.board_spaces)
     puts " cpu picks #{pick}"
-    @game_board.board_spaces[:"#{pick}"] = @turn[@counter]
-    @game_board.draw_board
+    @rules.cpu_turn_counter if @rules.board.instance_of?(Lite3Board)
+    @rules.board.board_spaces[:"#{pick}"] = @turn[@counter]
+    @rules.board.draw_board
     puts 'cpu turn ended'
   end
-  # play_game
-  # set turn = players
-  # start loop
-  #
+
   def play_game
     # Initialize counter and turn
     @turn = [@players[:p1][:mark], @players[:p2][:mark]]

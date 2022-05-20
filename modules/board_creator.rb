@@ -5,8 +5,8 @@ module BoardCreator
   module TicTacToeBoard
     class << self
       def create_ttt_board
-        require_relative '../src/board'
-        Board.new
+        require_relative '../src/TttBoard'
+        TttBoard.new
       end
 
       def create_lite3_board

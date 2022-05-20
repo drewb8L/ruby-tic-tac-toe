@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 require_relative './board_creator'
-require_relative '../src/board'
-require_relative '../src/rules'
+require_relative '../src/TttBoard'
+require_relative '../src/TttRules'
+require_relative '../src/lite3_rules'
 require_relative '../src/game'
 module GameSetup
   # Sets up TTT or lite3 game
@@ -23,23 +24,20 @@ module GameSetup
 
     def self.ttt_classic
       @options[:board] = BoardCreator::TicTacToeBoard.create_ttt_board
-      puts @options[:rules]
-      puts 'Playing classic game'
-      @options[:rules] = Rules.new(@options[:board])
-      puts @options[:rules]
+      puts 'Playing classic Tic Tac Toe game'
+      @options[:rules] = TttRules.new(@options[:board])
       true
     end
 
     def self.lite3
       @options[:board] = BoardCreator::TicTacToeBoard.create_lite3_board
       puts 'Playing Lite3 game'
-      @options[:rules] = Rules.new(@options[:board])
+      @options[:rules] = Lite3Rules.new(@options[:board])
       true
     end
 
     def self.select_board
-      puts 'There are two versions of the game available, Classic and Lite3,
-            Which would you like to play?'
+      puts 'There are two versions of the game available, Classic and Lite3, Which would you like to play?'
       puts 'Select 1 for classic or 2 for Lite3'
       input = gets.chomp
       unless %w[1 2].include?(input)
@@ -98,16 +96,22 @@ module GameSetup
       human_player2 = { type: 'human', mark: '' }
       cpu_player = { type: 'cpu', mark: '' }
 
-      if position == '1' && @options[:cpu_opponent] == false
-        @options[:players][:p1] = human_player1
-        @options[:players][:p2] = human_player2
-        @options[:players][:p1][:mark] = @choices[mark.to_i]
-      elsif position == '2' && @options[:cpu_opponent] == false
-        @options[:players][:p2] = human_player2
-        @options[:players][:p1] = human_player1
-        @options[:players][:p2][:mark] = @choices[mark.to_i]
-      end
+      human_v_human_setup(human_player1, human_player2, mark, position)
 
+      human_v_cpu_setup(cpu_player, human_player1, human_player2, mark, position)
+
+      mark_setup
+    end
+
+    def self.mark_setup
+      if @options[:players][:p1][:mark] == ''
+        @options[:players][:p1][:mark] = @options[:players][:p2][:mark] == 'X' ? 'O' : 'X'
+      elsif @options[:players][:p2][:mark] == ''
+        @options[:players][:p2][:mark] = @options[:players][:p1][:mark] == 'X' ? 'O' : 'X'
+      end
+    end
+
+    def self.human_v_cpu_setup(cpu_player, human_player1, human_player2, mark, position)
       if position == '1' && @options[:cpu_opponent] == true
         @options[:players][:p1] = human_player1
         @options[:players][:p2] = cpu_player
@@ -117,11 +121,17 @@ module GameSetup
         @options[:players][:p1] = cpu_player
         @options[:players][:p2][:mark] = @choices[mark.to_i]
       end
+    end
 
-      if @options[:players][:p1][:mark] == ''
-        @options[:players][:p1][:mark] = @options[:players][:p2][:mark] == 'X' ? 'O' : 'X'
-      elsif @options[:players][:p2][:mark] == ''
-        @options[:players][:p2][:mark] = @options[:players][:p1][:mark] == 'X' ? 'O' : 'X'
+    def self.human_v_human_setup(human_player1, human_player2, mark, position)
+      if position == '1' && @options[:cpu_opponent] == false
+        @options[:players][:p1] = human_player1
+        @options[:players][:p2] = human_player2
+        @options[:players][:p1][:mark] = @choices[mark.to_i]
+      elsif position == '2' && @options[:cpu_opponent] == false
+        @options[:players][:p2] = human_player2
+        @options[:players][:p1] = human_player1
+        @options[:players][:p2][:mark] = @choices[mark.to_i]
       end
     end
 
@@ -130,10 +140,15 @@ module GameSetup
       select_board
       select_opponent
       select_turn_order_and_mark
-      puts @options
+      clear_screen
+      puts "Game options chosen:\n#{@options[:board].class}\nPlayer 1:#{@options[:players][:p1][:type]} #{@options[:players][:p1][:mark]},\nPlayer 2:#{@options[:players][:p2][:type]}, #{@options[:players][:p2][:mark]}"
       # Display formatted game options to the player
       game = Game.new(@options)
       game.begin_game
+    end
+
+    def self.clear_screen
+      print "\e[2J\e[f"
     end
   end
 end

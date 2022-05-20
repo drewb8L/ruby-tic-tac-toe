@@ -1,21 +1,21 @@
 # frozen_string_literal: true
 
 require 'rspec'
-require_relative '../src/rules'
-require_relative '../src/board'
+require_relative '../src/TttRules'
+require_relative '../src/TttBoard'
 require_relative '../src/game'
 
 # Moving rule logic away from game and board classes, they don't need to know implementation details of rules
-board = Board.new
+board = TttBoard.new
 
-describe Rules do
+describe TttRules do
   subject { described_class.new(board) }
   it 'should exist' do
-    expect(subject).to be_instance_of(Rules)
+    expect(subject).to be_instance_of(TttRules)
   end
 end
 
-context Rules do
+context TttRules do
   subject { described_class.new(board) }
   it 'should return true on board_full?' do
     subject.board.board_spaces = { '7' => 'X', '8' => 'X', '9' => 'O', '4' => 'O', '5' => 'X', '6' => 'O', '1' => 'X',
@@ -24,7 +24,7 @@ context Rules do
   end
 end
 
-context Rules do
+context TttRules do
   subject { described_class.new(board) }
   it 'should return false on unoccupied space' do # Broken test
     subject.board.board_spaces = { '7' => ' ', '8' => 'X', '9' => 'O', '4' => 'O', '5' => 'X', '6' => 'O', '1' => 'X',

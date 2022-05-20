@@ -2,7 +2,7 @@
 
 require_relative '../modules/win_conditions'
 # Game rules for TTT
-class Rules
+class TttRules
   attr_accessor :board, :game_over, :game_draw
 
   def initialize(board)

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # TTT board
-class Board
+class TttBoard
   attr_accessor :board_spaces, :board_spaces_example
 
   def initialize
