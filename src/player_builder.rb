@@ -28,11 +28,30 @@ class PlayerBuilder < Builder
 
   def set_player_position
     puts 'Would you like to be player 1 or player 2, enter 1 or 2...'
-    $stdin.gets.chomp!
+    input = $stdin.gets.chomp!
+    until valid_position(input)
+      puts 'error'
+      input = $stdin.gets.chomp!
+    end
+    input
   end
 
   def set_player_mark
     puts 'Would you like to be an X or an O, enter X or O...'
-    $stdin.gets.chomp!
+    input = $stdin.gets.chomp!.upcase!
+    until valid_mark(input)
+      puts 'error'
+      input = $stdin.gets.chomp!.upcase!
+    end
+    input
   end
+
+  def valid_mark(mark)
+    mark if %w[X O].include?(mark)
+  end
+
+  def valid_position(position)
+    position if %w[1 2].include?(position)
+  end
+
 end

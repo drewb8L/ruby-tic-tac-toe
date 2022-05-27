@@ -17,22 +17,16 @@ class Client
   end
 
   def build_player
-    director = PlayerDirector.new
     builder = PlayerBuilder.new
-    director.builder = builder
-
+    director = PlayerDirector.new(builder)
     puts 'Player setup'
-    # name = $stdin.gets
-    # position = $stdin.gets
-    # mark = $stdin.gets
     @players.store(:human_player, director.build_human_player)
-    
   end
 
   def build_cpu_player
-    director = PlayerDirector.new
     builder = PlayerBuilder.new
-    director.builder = builder
+    director = PlayerDirector.new(builder)
+
 
     puts 'Creating cpu player'
     @players.store(:cpu_player, director.build_cpu_player)

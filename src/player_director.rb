@@ -1,8 +1,8 @@
 class PlayerDirector
   attr_accessor :builder
 
-  def initialize
-    @builder = nil
+  def initialize(builder)
+    @builder = builder
   end
 
   def build_human_player
