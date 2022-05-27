@@ -1,6 +1,6 @@
 require 'rspec'
 require_relative '../src/rules'
-require_relative '../src/board'
+require_relative '../src/TttBoard'
 
 describe Rules do
   let(:board) { Board.new }

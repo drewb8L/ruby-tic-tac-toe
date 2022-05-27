@@ -2,7 +2,7 @@
 
 require 'rspec'
 require_relative '../src/game'
-require_relative '../src/board'
+require_relative '../src/TttBoard'
 describe Game do
 
 end

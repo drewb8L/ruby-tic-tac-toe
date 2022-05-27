@@ -1,11 +1,12 @@
 
 class AbstractGameFactory
+  attr_accessor :options
 
-  def create_ttt_classic
-    raise NotImplementedError, "#{self.class} has not implemented method '#{__method__}'"
+  def initialize(options)
+    @options = options
+
   end
-
-  def create_lite3_ttt
+  def create_game
     raise NotImplementedError, "#{self.class} has not implemented method '#{__method__}'"
   end
 end

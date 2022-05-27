@@ -7,7 +7,7 @@ class Player
     @position = params[:position]
   end
 
-  def player
-    { name: @name, mark: @mark, position: @position }
+  def to_s
+    "Name: #{@name}, Mark: #{@mark}, Position: #{@position}"
   end
 end
