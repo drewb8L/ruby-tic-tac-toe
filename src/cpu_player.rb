@@ -1,4 +1,8 @@
-require_relative './player'
+# frozen_string_literal: true
+
+require_relative '../src/player'
+
+# A cpu player
 class CpuPlayer < Player
   attr_accessor :name, :mark, :position
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rspec'
-require_relative '../src/TttBoard'
+require_relative '../src/ttt_board'
 
 describe TttBoard do
   it 'should initialize board with blank spaces' do

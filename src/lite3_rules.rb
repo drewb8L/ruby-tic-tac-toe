@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Lite3Rules
   attr_accessor :board, :game_over, :game_draw
 
@@ -55,14 +57,15 @@ class Lite3Rules
     @lite3_turn_counter = 0
   end
 
+  # rubocop:disable Style/GuardClause
   def check_counter
     if @lite3_turn_counter > 2
       lite3_rules(@board.board_spaces)
       reset_counter
     end
-
   end
 
+  # rubocop:enable Style/GuardClause
   def check_win_condition
     if WinConditions.row_wins(@board) || WinConditions.column_wins(@board) || WinConditions.diagonal_wins(@board)
       @game_over = true

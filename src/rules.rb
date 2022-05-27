@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Rules
   attr_accessor :game_over, :board
 

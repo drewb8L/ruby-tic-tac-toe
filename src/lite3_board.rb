@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../src/board'
 class Lite3Board < Board
   attr_accessor :board_spaces, :board_spaces_example
@@ -30,5 +32,4 @@ class Lite3Board < Board
     puts ' --+--+--'
     puts " #{@board_spaces_example[:'1']} |#{@board_spaces_example[:'2']} |#{@board_spaces_example[:'3']}"
   end
-
 end

@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rspec'
 require_relative '../src/rules'
-require_relative '../src/TttBoard'
+require_relative '../src/ttt_board'
 
 describe Rules do
   let(:board) { Board.new }

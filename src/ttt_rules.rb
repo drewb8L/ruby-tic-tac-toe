@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require_relative '../modules/win_conditions'
 class TttRules
   attr_accessor :board, :game_over, :game_draw

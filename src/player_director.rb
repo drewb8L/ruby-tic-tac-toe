@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PlayerDirector
   attr_accessor :builder
 
@@ -12,5 +14,4 @@ class PlayerDirector
   def build_cpu_player
     builder.build_cpu_player
   end
-
 end

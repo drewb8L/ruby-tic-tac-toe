@@ -1,8 +1,11 @@
-require_relative '../src/abstractGameFactory'
+# frozen_string_literal: true
+
+require_relative '../src/abstract_game_factory'
 require_relative '../src/ttt_rules'
-require_relative '../src/TttBoard'
+require_relative '../src/ttt_board'
 require_relative '../src/game'
 
+# Creates classic TTT game instance
 class ClassicTttGameFactory < AbstractGameFactory
   attr_accessor :options
 
@@ -19,15 +22,11 @@ class ClassicTttGameFactory < AbstractGameFactory
   end
 
   def set_position
-    if @options[:players][:p1].class || @options[:players][:p2].instance_of?(CpuPlayer)
-      @options[:cpu_opponent] = true
-    end
-
+    @options[:cpu_opponent] = true if @options[:players][:p1].class || @options[:players][:p2].instance_of?(CpuPlayer)
   end
 end
-#{:board=>nil,
+# {:board=>nil,
 # :players=>{:p1=>#<HumanPlayer:0x0000000104dbd8c8 @name="Andrew", @mark="X", @position="1">,
 # :p2=>#<CpuPlayer:0x0000000104dbce00 @name="Computer", @mark="O", @position="2">},
 # :cpu_opponent=>false,
 # :rules=>nil}
-

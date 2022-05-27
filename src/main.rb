@@ -7,7 +7,6 @@ def main
   client.build_player
   client.build_cpu_player
   client.classic_ttt_game
-
 end
 
 main

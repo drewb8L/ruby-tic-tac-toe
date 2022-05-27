@@ -53,5 +53,4 @@ class PlayerBuilder < Builder
   def valid_position(position)
     position if %w[1 2].include?(position)
   end
-
 end

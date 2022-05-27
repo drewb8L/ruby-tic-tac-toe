@@ -14,5 +14,4 @@ class Ai
   end
 
   #  TODO: smarter Ai methods
-
 end

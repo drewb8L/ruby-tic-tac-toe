@@ -19,6 +19,7 @@ class Game
     play_game
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def take_turns
     # WORKS BUT NOT DRY!!!
     until @rules.game_over || @rules.game_draw
@@ -28,6 +29,7 @@ class Game
       @counter = @counter.zero? ? 1 : 0 unless @rules.check_win_condition || @rules.check_draw
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   private
 

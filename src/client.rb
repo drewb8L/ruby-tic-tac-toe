@@ -1,15 +1,16 @@
 # frozen_string_literal: true
+
 require_relative '../src/player_director'
 require_relative '../src/player_builder'
 require_relative '../src/classic_ttt_game_factory'
 require_relative '../src/lite3_ttt_game_factory'
 
+# Home for the player and game builders
 class Client
   attr_accessor :players, :options
 
   def initialize
     @options = { board: nil, players: { p1: '', p2: '' }, cpu_opponent: false, rules: nil }
-
   end
 
   def classic_ttt_game
@@ -34,11 +35,7 @@ class Client
     builder = PlayerBuilder.new
     director = PlayerDirector.new(builder)
 
-
     puts 'Creating cpu player'
     @options[:players].store(:p2, director.build_cpu_player)
   end
-
-
 end
-

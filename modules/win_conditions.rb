@@ -2,7 +2,6 @@
 
 # Stores constant for wins ans conducts test
 module WinConditions
-
   def self.check_win(arr1)
     true if arr1.eql?(%w[X X X]) || arr1.eql?(%w[O O O])
   end
@@ -32,5 +31,4 @@ module WinConditions
     ]
     wins.map { |i| check_win(i) }.join != ''
   end
-
 end
