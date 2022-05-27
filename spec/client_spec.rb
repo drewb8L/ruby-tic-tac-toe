@@ -4,7 +4,6 @@ require 'rspec'
 
 require_relative '../src/client'
 
-
 # describe Client do
 #   it 'should return a human player and a cpu player' do
 #     subject.build_player
