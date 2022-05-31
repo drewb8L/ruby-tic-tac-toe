@@ -9,3 +9,5 @@ AllCops:
   TargetRubyVersion: 3.1
   Exclude:
     - Guardfile
+Style/Documentation:
+  Enabled: false

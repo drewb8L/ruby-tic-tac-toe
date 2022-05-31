@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require_relative 'game'
-require_relative 'board'
+require_relative '../src/client'
 
 def main
-  board = Board.new
-  game = Game.new(board)
-  game.begin_game
+  client = Client.new
+  client.build_player
+  client.build_cpu_player
+  client.classic_ttt_game
 end
 
 main
