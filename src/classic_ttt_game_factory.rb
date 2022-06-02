@@ -25,8 +25,3 @@ class ClassicTttGameFactory < AbstractGameFactory
     @options[:cpu_opponent] = true if @options[:players][:p1].class || @options[:players][:p2].instance_of?(CpuPlayer)
   end
 end
-# {:board=>nil,
-# :players=>{:p1=>#<HumanPlayer:0x0000000104dbd8c8 @name="Andrew", @mark="X", @position="1">,
-# :p2=>#<CpuPlayer:0x0000000104dbce00 @name="Computer", @mark="O", @position="2">},
-# :cpu_opponent=>false,
-# :rules=>nil}
