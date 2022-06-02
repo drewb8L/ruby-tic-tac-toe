@@ -7,7 +7,7 @@ require_relative '../src/client'
 # describe Client do
 #   it 'should return a human player and a cpu player' do
 #     subject.build_player
-#     subject.build_cpu_player
+#     subject.build_cpu_vs_human_players
 #     expect(subject.options[:players][:p2].class).to eq(CpuPlayer)
 #     expect(subject.options[:players][:p1].class).to eq(HumanPlayer)
 #     puts subject.options[:players][:p1].position

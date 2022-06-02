@@ -21,21 +21,35 @@ class Client
 
   def lite3_ttt_game
     lite3_factory = Lite3TttGameFactory.new(@options)
-    lite3_factory.create_game
+    game = lite3_factory.create_game
+    game.begin_game
   end
 
   def build_player
     builder = PlayerBuilder.new
     director = PlayerDirector.new(builder)
     puts 'Player setup'
-    @options[:players].store(:p1, director.build_human_player)
+    director.build_human_player
+    @options[:players].store(:p1, director.builder.human_player1)
+    @options[:players].store(:p2, director.builder.human_player2)
+    arrange_players
   end
 
   def build_cpu_player
     builder = PlayerBuilder.new
     director = PlayerDirector.new(builder)
+    puts 'Human player details'
+    director.build_cpu_player
+    @options[:players].store(:p1, director.builder.human_player1)
+    @options[:players].store(:p2, director.builder.cpu_player)
+    arrange_players
+  end
 
-    puts 'Creating cpu player'
-    @options[:players].store(:p2, director.build_cpu_player)
+  def arrange_players
+    return unless @options[:players][:p1].position == '2'
+
+    player = @options[:players][:p1]
+    @options[:players][:p1] = @options[:players][:p2]
+    @options[:players][:p2] = player
   end
 end

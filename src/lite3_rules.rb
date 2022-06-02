@@ -59,7 +59,7 @@ class Lite3Rules
 
   # rubocop:disable Style/GuardClause
   def check_counter
-    if @lite3_turn_counter > 2
+    if @lite3_turn_counter > 3
       lite3_rules(@board.board_spaces)
       reset_counter
     end

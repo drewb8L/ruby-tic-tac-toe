@@ -21,7 +21,6 @@ class Game
 
   # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def take_turns
-    # WORKS BUT NOT DRY!!!
     until @rules.game_over || @rules.game_draw
       player_one unless @rules.check_draw || @rules.check_win_condition
       @counter = @counter.zero? ? 1 : 0 unless @rules.check_win_condition || @rules.check_draw
@@ -41,7 +40,7 @@ class Game
   end
 
   def player_one
-    if @cpu_player && @players[:p1].name == 'Computer'
+    if @players[:p1].instance_of?(CpuPlayer)
       cpu_turn
     else
       human_player_turn
@@ -49,7 +48,7 @@ class Game
   end
 
   def player_two
-    if @cpu_player && @players[:p2].name == 'Computer'
+    if @players[:p2].instance_of?(CpuPlayer)
       cpu_turn
     else
       human_player_turn
@@ -80,6 +79,7 @@ class Game
   end
 
   def play_game
+    puts @players
     # Initialize counter and turn
     @turn = [@players[:p1].mark, @players[:p2].mark]
     @counter = 0
