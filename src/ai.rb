@@ -12,6 +12,4 @@ class Ai
     end
     options[(Random.rand(0..options.length - 1))]
   end
-
-
 end

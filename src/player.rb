@@ -43,5 +43,4 @@ class Player
     # choice will return valid or invalid
     @rules.valid_square_choice_input?(input)
   end
-
 end
