@@ -10,7 +10,7 @@ class Game
   def initialize(params)
     @rules = params[:rules]
     @players = params[:players]
-    @cpu_player = params[:cpu_opponent]
+    # @cpu_player = params[:cpu_opponent]
   end
 
   def begin_game

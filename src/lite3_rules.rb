@@ -40,7 +40,7 @@ class Lite3Rules
     end
     pick = options[(Random.rand(0..options.length - 1))]
     @board.board_spaces[:"#{pick}"] = ' '
-    puts "LITE3 Removes Space: #{pick}"
+    puts "Lite3 Removes Space: #{pick}"
   end
 
   def cpu_turn_counter

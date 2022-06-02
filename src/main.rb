@@ -24,7 +24,7 @@ end
 
 def choose_options(game_options)
   puts 'There are two version available classic and lite 3,
- which would you lie to play? Enter 1 for classic or 2 for lite3'
+which would you like to play? Enter 1 for classic or 2 for lite3'
   choose_game_type(game_options)
 end
 
