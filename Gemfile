@@ -11,4 +11,4 @@ group :development do
   gem 'guard-rspec'
 end
 
-gem "matrix", "~> 0.4.2"
+gem 'matrix', '~> 0.4.2'

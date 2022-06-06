@@ -2,25 +2,24 @@
 
 # concrete board class and public interface
 class Board
-  attr_accessor :rows
-  
+  attr_accessor :rows, :board_spaces
+
   def initialize(rows = 3)
     @rows = rows
     @board_spaces = make_example_board
-
   end
 
   def make_board
     board = {}
     size = @rows * @rows
-    size.times { |element| board.store(element, '%02d' % element) }
+    size.times { |element| board.store(element, format('%02d', element)) }
     board
   end
 
   def make_example_board
     board = {}
     size = @rows * @rows
-    size.times { |element| board.store(element, '%02d' % element) }
+    size.times { |element| board.store(element, format('%02d', element)) }
     board
   end
 
@@ -32,6 +31,7 @@ class Board
     filler
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def draw_board
     rows = @board_spaces.size / @rows
     col = @board_spaces.size / @rows
@@ -39,16 +39,13 @@ class Board
     until spaces.zero?
       col.times do
         rows.times do |r|
-          print "#{@board_spaces.fetch(spaces - (r + 1))}"
-          if r != rows - 1
-            print '|'
-          end
+          print @board_spaces.fetch(spaces - (r + 1)).to_s
+          print '|' if r != rows - 1
         end
         puts "--+#{filler(rows)}--"
         spaces -= rows
       end
     end
   end
-  
-  
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 end

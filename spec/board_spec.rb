@@ -12,4 +12,11 @@ describe TttBoard do
   it 'square 7 should be string with space " "' do
     expect(subject.board_spaces[7]).to eq('07')
   end
+
+  context Board do
+    let(:board) { described_class.new(5) }
+    it 'should have a size of 9' do
+      expect(board.board_spaces.length).to be(25)
+    end
+  end
 end
