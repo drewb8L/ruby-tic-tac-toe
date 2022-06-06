@@ -10,3 +10,5 @@ gem 'rubocop', '~> 1.28'
 group :development do
   gem 'guard-rspec'
 end
+
+gem "matrix", "~> 0.4.2"
