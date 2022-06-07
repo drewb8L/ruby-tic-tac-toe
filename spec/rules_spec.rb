@@ -6,6 +6,8 @@ require_relative '../src/ttt_rules'
 require_relative '../src/lite3_rules'
 require_relative '../src/ttt_board'
 
+# rubocop:disable Metrics/BlockLength
+
 describe Rules do
   let(:board) { Board.new }
   subject { described_class.new(:board) }
@@ -14,7 +16,6 @@ describe Rules do
   end
 
   describe TttRules do
-
     subject { described_class.new(TttBoard.new) }
     it 'should return truthy when full' do
       subject.board.board_spaces[0] = 'X '
@@ -28,14 +29,11 @@ describe Rules do
       subject.board.board_spaces[8] = 'X '
       expect(subject.board_full?).to be_truthy
     end
-
   end
 
   describe Lite3Rules do
-
     subject { described_class.new(TttBoard.new) }
     it 'should return falsey when a space can be occupied' do
-
       subject.board.board_spaces[1] = 'X '
       subject.board.board_spaces[2] = 'X '
       subject.board.board_spaces[3] = 'X '
@@ -47,4 +45,5 @@ describe Rules do
       expect(subject.board_full?).to be_falsey
     end
   end
+  # rubocop:enable Metrics/BlockLength
 end

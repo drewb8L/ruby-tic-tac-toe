@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rspec'
 require_relative '../src/ai'
 
@@ -15,5 +17,4 @@ describe Ai do
     expect(Ai.pick_space(spaces)).to be_between(0, 8)
     expect(Ai.pick_space(spaces)).to be_between(0, 8)
   end
-
 end
