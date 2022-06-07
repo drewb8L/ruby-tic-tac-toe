@@ -2,11 +2,12 @@
 
 # concrete board class and public interface
 class Board
-  attr_accessor :rows, :board_spaces
+  attr_accessor :rows, :board_spaces, :example_board
 
   def initialize(rows = 3)
     @rows = rows
-    @board_spaces = make_example_board
+    @board_spaces = make_board
+    @example_board = make_example_board
   end
 
   def make_board

@@ -15,8 +15,9 @@ class Game
   end
 
   def begin_game
-    @rules.board.draw_board
-    puts "This board mirrors the input from a numpad on a keyboard.\nEnter numbers to make a move."
+    puts @rules.board.draw_board
+    puts "The numbers displayed on the board correspond the number to enter to take the space.
+ \nEnter numbers to make a move."
     play_game
   end
 
