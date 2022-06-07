@@ -11,14 +11,8 @@ class Lite3Rules
   end
 
   def valid_square_choice_input?(input)
-    if @board.board_spaces[:"#{input}"] == ' ' && input in (1..9)
-      increment_counter
-      check_counter
-      puts "Lite3 counter: #{@lite3_turn_counter}"
-      input.to_s
-    else
-      false
-    end
+    keys = @board.board_spaces.keys
+    keys.include?(input) && @board.board_spaces[input] == format('%02d', input) ? input : false
   end
 
   def check_draw
@@ -28,15 +22,15 @@ class Lite3Rules
   def board_full?
     square = 0
     @board.board_spaces.each_value do |v|
-      square += 1 if v != ' '
+      square += 1 if ['X ', 'O '].include?(v)
     end
-    square == 9
+    square == @board.board_spaces.size
   end
 
   def lite3_rules(spaces)
     options = []
     spaces.each_pair do |key, value|
-      options << key if %w[X O].include?(value)
+      options << key if ['X ', 'O '].include?(value) # Changed
     end
     pick = options[(Random.rand(0..options.length - 1))]
     @board.board_spaces[:"#{pick}"] = ' '
