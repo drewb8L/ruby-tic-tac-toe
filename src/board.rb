@@ -38,7 +38,7 @@ class Board
     col = @board_spaces.size / @rows
     spaces = @board_spaces.size
     until spaces.zero?
-      col.times do
+      col.times do |c|
         rows.times do |r|
           print @board_spaces.fetch(spaces - (r + 1)).to_s
           print '|' if r != rows - 1

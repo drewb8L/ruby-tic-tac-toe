@@ -8,7 +8,7 @@ class Ai
   def self.pick_space(spaces)
     options = []
     spaces.each_pair do |key, value|
-      options << key if value == ' '
+      options << key if value == format('%02d', key)
     end
     options[(Random.rand(0..options.length - 1))]
   end

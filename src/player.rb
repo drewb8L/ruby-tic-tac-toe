@@ -19,7 +19,7 @@ class Player
     pick = Ai.pick_space(@rules.board.board_spaces)
     puts " cpu picks #{pick}"
     @rules.cpu_turn_counter if @rules.board.instance_of?(Lite3Board)
-    @rules.board.board_spaces[:"#{pick}"] = turn[counter]
+    @rules.board.board_spaces[pick] = turn[counter]
     @rules.board.draw_board
     puts 'cpu turn ended'
   end
@@ -33,7 +33,7 @@ class Player
         choice = player_square_choice
       end
     end
-    @rules.board.board_spaces[:"#{choice}"] = turn[counter]
+    @rules.board.board_spaces[choice] = turn[counter]
     @rules.board.draw_board
   end
 

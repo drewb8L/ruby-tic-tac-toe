@@ -49,7 +49,7 @@ class PlayerBuilder < Builder
       puts 'error'
       input = $stdin.gets.chomp!.upcase!
     end
-    input
+    "#{input} "
   end
 
   def valid_mark(mark)
@@ -61,13 +61,13 @@ class PlayerBuilder < Builder
   end
 
   def assign_remaining_player(player)
-    assign_mark = player.mark == 'X' ? 'O' : 'X'
+    assign_mark = player.mark == 'X ' ? 'O ' : 'X '
     assign_position = player.position == '1' ? '2' : '1'
     HumanPlayer.new(name: set_player_name, mark: assign_mark, position: assign_position)
   end
 
   def assign_cpu_player(player)
-    assign_mark = player.mark == 'X' ? 'O' : 'X'
+    assign_mark = player.mark == 'X ' ? 'O ' : 'X '
     assign_position = player.position == '1' ? '2' : '1'
     puts @human_player1
     puts @cpu_player
