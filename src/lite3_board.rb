@@ -4,7 +4,7 @@ require_relative '../src/board'
 class Lite3Board < Board
   attr_accessor :board_spaces, :board_spaces_example
 
-  def initialize(size)
+  def initialize(size = 3)
     super
     super
     board = make_board
