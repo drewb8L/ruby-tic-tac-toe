@@ -33,7 +33,7 @@ class Lite3Rules
       options << key if ['X ', 'O '].include?(value) # Changed
     end
     pick = options[(Random.rand(0..options.length - 1))]
-    @board.board_spaces[:"#{pick}"] = ' '
+    @board.board_spaces[pick] = format('%02d', pick)
     puts "Lite3 Removes Space: #{pick}"
   end
 
