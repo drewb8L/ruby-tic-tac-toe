@@ -9,7 +9,7 @@ class Lite3TttGameFactory < AbstractGameFactory
   def initialize(options)
     super
     @options = options
-    board = Lite3Board.new
+    board = Lite3Board.new(@options[:board_size])
     @options[:rules] = Lite3Rules.new(board)
   end
 

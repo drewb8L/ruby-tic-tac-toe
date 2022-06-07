@@ -15,14 +15,15 @@ class Game
   end
 
   def begin_game
-    @rules.board.draw_example_board
-    puts "This board mirrors the input from a numpad on a keyboard.\nEnter numbers to make a move."
+    puts @rules.board.draw_board
+    puts "The numbers displayed on the board correspond the number to enter to take the space.
+ \nEnter numbers to make a move."
     play_game
   end
 
   private
 
-  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity,  Metrics/PerceivedComplexity
   def take_turns
     until @rules.game_over || @rules.game_draw
       player_one unless @rules.check_draw || @rules.check_win_condition
@@ -44,7 +45,7 @@ class Game
   # rubocop:enable Layout/LineLength
 
   def play_game
-    puts @players
+    # puts @players
     # Initialize counter and turn
     @turn = [@players[:p1].mark, @players[:p2].mark]
     @counter = 0

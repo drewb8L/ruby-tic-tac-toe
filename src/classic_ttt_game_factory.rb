@@ -12,7 +12,7 @@ class ClassicTttGameFactory < AbstractGameFactory
   def initialize(options)
     super
     @options = options
-    board = TttBoard.new
+    board = TttBoard.new(@options[:board_size])
     @options[:rules] = TttRules.new(board)
     set_position
   end

@@ -10,7 +10,7 @@ class Client
   attr_accessor :players, :options
 
   def initialize
-    @options = { board: nil, players: { p1: '', p2: '' }, cpu_opponent: false, rules: nil }
+    @options = { board: nil, players: { p1: '', p2: '' }, cpu_opponent: false, rules: nil, board_size: 3 }
   end
 
   def classic_ttt_game

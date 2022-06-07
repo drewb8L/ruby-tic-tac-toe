@@ -17,6 +17,7 @@ def main
 
   puts 'Welcome to Tic Tac toe!'
   choose_players(player_options)
+  choose_board_size
   game = choose_options(game_options)
   game.call
 end
@@ -52,6 +53,16 @@ def player_setup(client, input)
   client.build_player if input == '1'
 end
 
-def choose_board_size(size); end
+def choose_board_size
+  puts 'You now have the ability to choose a board size!'
+  puts 'Press press Enter for the default 3X3 board or, up to 5 for a max board size of 5X5'
+  input = gets.chomp
+  until %w[4 5].include?(input) || (input == '')
+    puts 'choose only 4, 5 or enter for default board size.'
+    input = gets.chomp
+  end
+  input = 3 if input == ''
+  @client.options[:board_size] = input.to_i
+end
 
 main
