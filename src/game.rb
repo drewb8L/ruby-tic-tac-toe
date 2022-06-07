@@ -17,6 +17,7 @@ class Game
   def begin_game
     puts @rules.board.draw_board
     puts "The numbers displayed on the board correspond the number to enter to take the space.
+To take space 05, enter 5, without the zero.
  \nEnter numbers to make a move."
     play_game
   end

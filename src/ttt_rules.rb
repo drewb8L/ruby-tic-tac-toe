@@ -11,11 +11,8 @@ class TttRules
   end
 
   def valid_square_choice_input?(input)
-    if @board.board_spaces[:"#{input}"] == ' ' && input in (1..9)
-      input.to_s
-    else
-      false
-    end
+    keys = @board.board_spaces.keys
+    keys.include?(input) && @board.board_spaces[input] == format('%02d', input) ? input : false
   end
 
   def check_draw
@@ -25,9 +22,9 @@ class TttRules
   def board_full?
     square = 0
     @board.board_spaces.each_value do |v|
-      square += 1 if v != ' '
+      square += 1 if ['X ', 'O '].include?(v)
     end
-    square == 9
+    square == @board.board_spaces.size
   end
 
   def check_win_condition
