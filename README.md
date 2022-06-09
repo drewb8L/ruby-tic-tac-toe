@@ -16,7 +16,7 @@ Both human players will have the opportunity to enter their names, select their 
 * Note: player one always goes first.
 
 ![Player name enter](../../../Screenshots/Screen Shot 2022-06-09 at 11.14.23 AM.png)
-![second player name enter](readme-images/Screen Shot 2022-06-09 at 11.14.39 AM.png)
+![second player name enter](../readme-images/Screen Shot 2022-06-09 at 11.14.39 AM.png)
 * Note: Second players mark and position are automatically selected to the opposite of what player one choose. Player two only need to enter their name.
 
 As a player, you will be able to pick board sizes from 3x3 by default up to 5x5.
