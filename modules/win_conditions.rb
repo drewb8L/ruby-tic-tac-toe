@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Stores constant for wins ans conducts test
+# Stores algorithm for wins conditions of all sizes
 module WinConditions
   def self.check_win(arr1, rows)
     arr1 = arr1.flatten.join.strip.gsub(/\s+/, '')

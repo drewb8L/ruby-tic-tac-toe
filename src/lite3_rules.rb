@@ -30,7 +30,7 @@ class Lite3Rules
   def lite3_rules(spaces)
     options = []
     spaces.each_pair do |key, value|
-      options << key if ['X ', 'O '].include?(value) # Changed
+      options << key if ['X ', 'O '].include?(value)
     end
     pick = options[(Random.rand(0..options.length - 1))]
     @board.board_spaces[pick] = format('%02d', pick)
