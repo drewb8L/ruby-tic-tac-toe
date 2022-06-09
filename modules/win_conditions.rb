@@ -39,18 +39,20 @@ module WinConditions
     !wins.empty?
   end
 
-  def self.column_wins(game_board, col)
-    count = game_board.board_spaces.size - col
+  def self.column_wins(game_board, rows)
+    count = game_board.board_spaces.size - 1
     wins = []
-    col.times do
-      col.times do |i|
+    rows.times do |i|
+
+      rows.times do |j|
         wins.push(game_board.board_spaces.values_at(count - i))
+        count -= rows
       end
-      count -= col - 1
+      count = game_board.board_spaces.size - 1
     end
-    wins = wins.each_slice(col).to_a
+    wins = wins.each_slice(rows).to_a
     wins.each do
-      wins = wins.keep_if { |i| check_win(i, col) }
+      wins = wins.keep_if { |i| check_win(i, rows) }
     end
     !wins.empty?
   end

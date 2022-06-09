@@ -28,10 +28,9 @@ class TttRules
   end
 
   def check_win_condition
-    puts "Game Over? #{@game_over}"
-    puts WinConditions.row_wins(@board, @board.rows) ? true : false
     WinConditions.row_wins(@board, @board.rows) ? @game_over = true : @game_over = false
     WinConditions.diagonal_wins_high(@board, @board.rows) ? @game_over = true : @game_over = false
     WinConditions.diagonal_wins_low(@board, @board.rows) ? @game_over = true : @game_over = false
+    WinConditions.column_wins(@board, @board.rows) ? @game_over = true : @game_over = false
   end
 end
