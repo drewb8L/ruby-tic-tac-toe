@@ -58,11 +58,13 @@ class Lite3Rules
       reset_counter
     end
   end
-
   # rubocop:enable Style/GuardClause
+
+  # rubocop:disable Style/ConditionalAssignment
   def check_win_condition
     WinConditions.row_wins(@board, @board.rows) ? @game_over = true : @game_over = false
     WinConditions.diagonal_wins_high(@board, @board.rows) ? @game_over = true : @game_over = false
     WinConditions.diagonal_wins_low(@board, @board.rows) ? @game_over = true : @game_over = false
   end
+  # rubocop:enable Style/ConditionalAssignment
 end

@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'rspec'
 require_relative '../modules/win_conditions'
 require_relative '../src/board'
 
-
+# rubocop:disable Metrics/BlockLength
 describe WinConditions do
   let(:board) { Board.new 3 }
   it 'Should return false given an empty board' do
@@ -41,9 +43,9 @@ describe WinConditions do
     expect(subject.column_wins(board, board.rows)).to be_truthy
   end
 end
+# rubocop:enable Metrics/BlockLength
 
 context WinConditions do
-
   let(:board) { Board.new 5 }
   it 'Should return true with a 5 row win condition' do
     board.board_spaces[20] = 'X '
@@ -65,4 +67,3 @@ context WinConditions do
     expect(subject.column_wins(board, board.rows)).to be_truthy
   end
 end
-
