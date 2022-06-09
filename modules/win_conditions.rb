@@ -23,10 +23,11 @@ module WinConditions
     str
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def self.row_wins(game_board, rows)
     count = game_board.board_spaces.size - rows
     wins = []
-    rows.times do |i|
+    rows.times do
       rows.times do |j|
         wins.push(game_board.board_spaces.values_at(j + count))
       end
@@ -43,8 +44,7 @@ module WinConditions
     count = game_board.board_spaces.size - 1
     wins = []
     rows.times do |i|
-
-      rows.times do |j|
+      rows.times do
         wins.push(game_board.board_spaces.values_at(count - i))
         count -= rows
       end
@@ -61,11 +61,10 @@ module WinConditions
     count = game_board.board_spaces.size - col
     wins = []
     col.times do |i|
-      col.times do |j|
+      col.times do
         wins.push(game_board.board_spaces.values_at(count + i))
         count -= col - 1
       end
-
     end
     wins = wins.each_slice(col).to_a
     wins.each do
@@ -78,11 +77,10 @@ module WinConditions
     count = game_board.board_spaces.size - 1
     wins = []
     col.times do |i|
-      col.times do |j|
+      col.times do
         wins.push(game_board.board_spaces.values_at(count + i))
         count -= col + 1
       end
-
     end
     wins = wins.each_slice(col).to_a
     wins.each do
@@ -90,4 +88,5 @@ module WinConditions
     end
     !wins.empty?
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 end
