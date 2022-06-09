@@ -20,10 +20,10 @@ Both human players will have the opportunity to enter their names, select their 
 * Note: Second players mark and position are automatically selected to the opposite of what player one choose. Player two only need to enter their name.
 
 As a player, you will be able to pick board sizes from 3x3 by default up to 5x5.
-![](https://user-images.githubusercontent.com/104442990/172941918-2df929ae-9b32-4ce5-84dd-4a05c9d62fe6.png)
+![](https://user-images.githubusercontent.com/104442990/172941921-c7f77803-f1f4-44c6-b734-6f76d19d29f3.png)
 
 There are two versions of the game, classic Tic-tac-toe and Lite 3.
-![](https://user-images.githubusercontent.com/104442990/172941921-c7f77803-f1f4-44c6-b734-6f76d19d29f3.png)
+![](https://user-images.githubusercontent.com/104442990/172941922-903f40e1-4d9c-4994-bfd2-dec88db920f4.png)
 
 >Classic Tic-tac-toe game play
 
