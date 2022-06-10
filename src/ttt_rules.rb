@@ -28,10 +28,13 @@ class TttRules
   end
 
   def check_win_condition
-    if WinConditions.row_wins(@board) || WinConditions.column_wins(@board) || WinConditions.diagonal_wins(@board)
-      @game_over = true
-    else
-      @game_over = false
-    end
+    @game_over = if WinConditions.row_wins(@board, @board.rows) ||
+                    WinConditions.diagonal_wins_high(@board, @board.rows) ||
+                    WinConditions.diagonal_wins_low(@board, @board.rows) ||
+                    WinConditions.column_wins(@board, @board.rows)
+                   true
+                 else
+                   false
+                 end
   end
 end

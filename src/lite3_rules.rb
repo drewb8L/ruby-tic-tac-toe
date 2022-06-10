@@ -30,7 +30,7 @@ class Lite3Rules
   def lite3_rules(spaces)
     options = []
     spaces.each_pair do |key, value|
-      options << key if ['X ', 'O '].include?(value) # Changed
+      options << key if ['X ', 'O '].include?(value)
     end
     pick = options[(Random.rand(0..options.length - 1))]
     @board.board_spaces[pick] = format('%02d', pick)
@@ -58,13 +58,16 @@ class Lite3Rules
       reset_counter
     end
   end
-
   # rubocop:enable Style/GuardClause
+
   def check_win_condition
-    if WinConditions.row_wins(@board) || WinConditions.column_wins(@board) || WinConditions.diagonal_wins(@board)
-      @game_over = true
-    else
-      @game_over = false
-    end
+    @game_over = if WinConditions.row_wins(@board, @board.rows) ||
+                    WinConditions.diagonal_wins_high(@board, @board.rows) ||
+                    WinConditions.diagonal_wins_low(@board, @board.rows) ||
+                    WinConditions.column_wins(@board, @board.rows)
+                   true
+                 else
+                   false
+                 end
   end
 end

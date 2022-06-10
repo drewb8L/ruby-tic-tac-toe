@@ -46,13 +46,13 @@ To take space 05, enter 5, without the zero.
   # rubocop:enable Layout/LineLength
 
   def play_game
-    # puts @players
     # Initialize counter and turn
     @turn = [@players[:p1].mark, @players[:p2].mark]
+    player_names = [@players[:p1].name, @players[:p2].name]
     @counter = 0
     take_turns
     if @rules.game_over
-      puts "Game won by player #{@turn[@counter]}"
+      puts "Game won by #{player_names[@counter]}"
     elsif @rules.game_draw
       puts 'The game has ended in a draw!'
     end
